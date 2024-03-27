@@ -8,8 +8,7 @@ namespace Quiz.Level
 {
     public class LevelProvider : MonoBehaviour, IInitializeble
     {
-        private const float CameraOffcet = 2f;
-
+        [SerializeField] private CameraCentrer _cameraCentrer;
         [SerializeField] private GridBuilder _gridBuilder;
 
         [Space]
@@ -57,13 +56,7 @@ namespace Quiz.Level
 
             _currentLevelConfig = _levelConfigs[_currentLevelIndex++];
             _gridBuilder.BuildGrid(_currentLevelConfig);
-
-            CenteringCamera();
-        }
-
-        private void CenteringCamera()
-        {
-            Camera.main.transform.position = new Vector3(_currentLevelConfig.Width / CameraOffcet, -(_currentLevelConfig.Height / CameraOffcet), -10);
+            _cameraCentrer.CenteringCamera(_currentLevelConfig.Width, _currentLevelConfig.Height);
         }
 
         private void FinishedGame()
